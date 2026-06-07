@@ -8,8 +8,12 @@ void findLargestLine(int **matrix, int size, int *resultado){
 }
 
 void allocateMatrix(int ***matrix, int size) {
+
+    int contador = 1;
+
     *matrix = malloc(size * sizeof(int *));
-    for(int i = 0; i < size; i++){
+
+    for(int i = 1; i < size; i++){
         *((*matrix) + i) = malloc(size * sizeof(int));
     }
 }
