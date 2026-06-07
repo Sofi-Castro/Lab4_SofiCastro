@@ -1,17 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
-void allocateMatrix(int **matrix, int size, int *result) {
- 
+void findLargestLine(int **matrix, int size, int *resultado){
+
+    
 }
 
-void fillMatrix(int ***matrix, int size){
+void allocateMatrix(int ***matrix, int size) {
     *matrix = malloc(size * sizeof(int *));
-
     for(int i = 0; i < size; i++){
         *((*matrix) + i) = malloc(size * sizeof(int));
     }
 }
+
+
+void fillMatrix(int **matrix, int size){
+
+    srand(time(NULL));
+
+    for (int i=0; i < size; i++){
+        for (int j=0; j < size; j++){
+            *(*(matrix + i) + j) = rand() % 2;
+        }
+    }
+    
+    }
 
 void printMatrix(int **matrix, int size) {
     printf("Matriz (%dx%d): \n", size, size);
@@ -34,6 +48,14 @@ int main(void){
     int size, largestLine;
     int **matrix = NULL;
 
+    printf("Ingrese el tamaño de la matriz cuadrada: ");
+    scanf("%d", size);
+
+    allocateMatrix(&matrix, size);
+    fillMatrix(matrix, size);
+    printMatrix(matrix, size);
+    findLargestLine(matrix, size, &largestLine);
+    freeMatrix(matrix, size);
 
     printf("El tamaño de la secuencia de 1s más grande es: %d\n", largestLine);
 
