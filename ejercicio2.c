@@ -2,7 +2,26 @@
 #include <stdlib.h>
 
 unsigned char *read_pgm(const char *filename, int *width, int *height, int *max_val){
+    
+    FILE *fp = fopen("imagen.pgm", "r");
 
+    fscanf(fp, "%2s", *filename);
+    fscanf(fp, "%d %d", width, height);
+    fscanf(fp, "%d", max_val);
+
+    int **img = malloc(*height * sizeof(int*));
+
+    for (int i = 0; i < *height; i++) {
+        *(img + i) = malloc(*width * sizeof(int));
+    }
+
+    for (int i = 0; i < *height; i++) {
+        for (int j = 0; j < *width; j++) {
+            fscanf(fp, "%d", *(*(img + i) + j));
+        }
+    }
+
+    fclose(fp);
 }
 
 void apply_threshold(unsigned char *pixels, int total, int threshold){
