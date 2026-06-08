@@ -4,20 +4,20 @@
 
 void findLargestLine(int **matrix, int size, int *resultado){
 
-    int contador = 0;
+    int cont = 0;
 
-    for (int a = 0; a < size; a++){
+    for (int j = 0; j < size; j++){
 
-        int *fila = *(matrix + a);
+        int *fila = *(matrix + j);
 
         for (int i = 0; i < size; i++) {
             if (*(fila + i) == 1) {
-                contador += 1;
-                if (contador > *resultado){
-                    *resultado = contador;
+                cont += 1;
+                if (cont > *resultado){
+                    *resultado = cont;
                 }
             } else {
-                contador = 0;
+                cont = 0;
             }
         }
     }
