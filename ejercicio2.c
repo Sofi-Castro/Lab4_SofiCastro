@@ -5,23 +5,25 @@ unsigned char *read_pgm(const char *filename, int *width, int *height, int *max_
     
     FILE *fp = fopen("imagen.pgm", "r");
 
-    fscanf(fp, "%2s", *filename);
+    char palabra[3];
+
+    fscanf(fp, "%2s", palabra);
     fscanf(fp, "%d %d", width, height);
     fscanf(fp, "%d", max_val);
 
-    int **img = malloc(*height * sizeof(int*));
+    unsigned char *img = malloc(((*width) * (*height)) * sizeof(unsigned char));
 
-    for (int i = 0; i < *height; i++) {
-        *(img + i) = malloc(*width * sizeof(int));
-    }
+    unsigned char *p = img;
 
-    for (int i = 0; i < *height; i++) {
-        for (int j = 0; j < *width; j++) {
-            fscanf(fp, "%d", *(*(img + i) + j));
-        }
+    for (int i = 0; i < ((*width) * (*height)); i++, p++) {
+        int val; 
+        fscanf(fp, "%d", &val);
+        *p = (unsigned char)val;
     }
 
     fclose(fp);
+
+    return img;
 }
 
 void apply_threshold(unsigned char *pixels, int total, int threshold){
