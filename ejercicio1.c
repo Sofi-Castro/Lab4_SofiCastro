@@ -10,7 +10,7 @@ void findLargestLine(int **matrix, int size, int *resultado){
 
         int *fila = *(matrix + a);
 
-        for (int i = 1; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             if (*(fila + i) == 1) {
                 contador += 1;
                 if (contador > *resultado){
