@@ -3,16 +3,32 @@
 #include <time.h>
 
 void findLargestLine(int **matrix, int size, int *resultado){
-    
+
+    int contador = 0;
+
+    for (int a = 0; a < size; a++){
+
+        int *fila = *(matrix + a);
+
+        for (int i = 1; i < size; i++) {
+            if (*(fila + i) == 1) {
+                contador += 1;
+                if (contador > *resultado){
+                    *resultado = contador;
+                }
+            } else {
+                contador = 0;
+            }
+        }
+    }
 }
+
 
 void allocateMatrix(int ***matrix, int size) {
 
-    int contador = 1;
-
     *matrix = malloc(size * sizeof(int *));
 
-    for(int i = 1; i < size; i++){
+    for(int i = 0; i < size; i++){
         *((*matrix) + i) = malloc(size * sizeof(int));
     }
 }
@@ -48,11 +64,11 @@ void freeMatrix(int **matrix, int size){
 }
 
 int main(void){
-    int size, largestLine;
+    int size, largestLine = 0;
     int **matrix = NULL;
 
     printf("Ingrese el tamaño de la matriz cuadrada: ");
-    scanf("%d", size);
+    scanf("%d", &size);
 
     allocateMatrix(&matrix, size);
     fillMatrix(matrix, size);
