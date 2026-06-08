@@ -3,7 +3,6 @@
 #include <time.h>
 
 void findLargestLine(int **matrix, int size, int *resultado){
-
     
 }
 
