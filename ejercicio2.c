@@ -3,7 +3,7 @@
 
 unsigned char *read_pgm(const char *filename, int *width, int *height, int *max_val){
     
-    FILE *fp = fopen("imagen.pgm", "r");
+    FILE *fp = fopen(*filename, "r");
 
     char palabra[5];
 
@@ -59,6 +59,23 @@ unsigned char *make_negative(unsigned char *pixels, int total){
 }
 
 void write_pgm(const char *filename, unsigned char *pixels, int width, int height, int max_val){
+
+     FILE *fp = fopen(*filename, "w");
+
+    fprintf(fp, "P2\n");
+    fprint(fp, "%d %d\n", width, height);
+    fprint(fp, "%d\n", max_val);
+
+     for (int i = 0; i < (width * height); i++) {
+        fprintf(fp, "%u ", *pixels);
+
+        if ((i+1) % width == 0){
+            fprint(fp, "\n");
+        }
+
+     }
+
+     fclose(fp);
 
 }
 
