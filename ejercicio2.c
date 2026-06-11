@@ -5,6 +5,10 @@ unsigned char *read_pgm(const char *filename, int *width, int *height, int *max_
     
     FILE *fp = fopen(*filename, "r");
 
+    if (fp == NULL) {
+        return NULL;
+    }
+
     char palabra[5];
 
     fscanf(fp, "%2s", palabra);
@@ -103,14 +107,43 @@ void print_stats(unsigned char *original, unsigned char *thresholded, int total)
 
 
     printf("La cantidad de pixeles blancos es %hhu y la cantidad de pixeles negros es %huu\n", blanco, negro);
-    printf("El promedio de los pixeles del arreglo original es %d", promedio);
+    printf("El promedio de los pixeles del arreglo original es %d\n", promedio);
 
 }
 
+void freearray(int *pixels){
+    free (pixels);
+}
+
 int main(void){
-    int width, height, max_val, threshold;
+    int width, height, max_val, threshold, total;
     unsigned char *pixels = NULL;
     unsigned char *negative = NULL;
+    unsigned char *original = NULL;
+    char *ruta = "imagen.pgm";
+    char *archivo_1 = "output_threshold.pgm";
+    char *archivo_2 = "output_negative.pgm";
+
+    printf("Indice el umbral para aplicar a la foto:\n");
+    scanf("%d", &threshold);
+
+    pixels = read_pgm(ruta, &width, &height, &max_val);
+
+    total = width * height;
+
+    apply_threshold(pixels, total, threshold);
+    negative = make_negative(pixels, width*height);
+
+    write_pgm(archivo_1, pixels, width, height, max_val);
+    write_pgm(archivo_2, negative, width, height, max_val);
+
+    original = read_pgm(ruta, &width, &height, &max_val);
+
+    print_stats(original, pixels, total);
+
+    freearray(original);
+    freearray(negative);
+    freearray(pixels);
 
     return 0;
 }
