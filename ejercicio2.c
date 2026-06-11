@@ -81,6 +81,30 @@ void write_pgm(const char *filename, unsigned char *pixels, int width, int heigh
 
 void print_stats(unsigned char *original, unsigned char *thresholded, int total){
 
+    unsigned char blanco = 0, negro = 0, suma = 0;
+    int promedio = 0;
+
+    for (int i = 0; i < total; i++){
+
+        if (*thresholded == 255){
+            blanco += 1;
+        } else{
+            negro += 1;
+        }
+
+        suma += *original;
+
+        original++;
+        thresholded++;
+
+    }
+
+    promedio = (int)suma / total;
+
+
+    printf("La cantidad de pixeles blancos es %hhu y la cantidad de pixeles negros es %huu\n", blanco, negro);
+    printf("El promedio de los pixeles del arreglo original es %d", promedio);
+
 }
 
 int main(void){
